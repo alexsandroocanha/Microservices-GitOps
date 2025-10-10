@@ -227,3 +227,32 @@ $pw = kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.da
 ```powershell
  [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($pw))
 ```
+
+O retorno deve ser mais ou menos assim
+```powershell
+PS C:\Users\...>  [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($pw))
+1C2pQSph9NLtApQY // Codigo é diferente para cada pessoa
+```
+
+Salve este codigo que apareceu especificamente para você em um bloco de notas, pois precisaremos para fazer o Login do ArgoCD.
+
+Após isso execute o seguinte commando
+```powershell
+argocd login localhost:8080
+```
+Concorde com os termos, e em username digite admin e em password digite aquele codigo que apareceu para você
+
+O retorno sera algo parecido com isto
+```powershell
+PS C:\Users\...> argocd login localhost:8080
+WARNING: server certificate had error: tls: failed to verify certificate: x509: certificate signed by unknown authority. Proceed insecurely (y/n)? y
+Username: admin
+Password:
+'admin:login' logged in successfully
+Context 'localhost:8080' updated
+```
+
+Após isso teremos que saber qual é o contexto do cluster, se esta em um cluster minikube, rancher desktop, etc...
+```powershell
+kubectl config current-context
+```
