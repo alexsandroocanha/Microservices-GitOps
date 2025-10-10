@@ -308,3 +308,45 @@ Agora, voltando para o terminal. Configuraremos o token dentro do ArgoCD
 argocd repo add https://github.com/alexsandroocanha/gitops-microservices.git --username SEU-USUARIO-DO-GITHUB --password SEU-TOKEN
 ```
 
+Agora configuraremos o deploy do manifesto
+```powershell
+argocd app create botique --repo O-LINK-DO-REPOSITORIO --path . --dest-server https://kubernetes.default.svc --dest-namespace default
+```
+Algumas observações
+> --path - É aonde se localiza o manifesto, pense que ele é uma pessoa e ira fazer o deploy. Você precisa se direcionar para o manifesto colocando o caminho da pasta (Exemplo: /repositorio-legal/manifestos/)
+
+> --dest-server - É o cluster kubernetes que você vai fazer o deploy. Caso esteja utilizando o Rancher Desktop o cluster dele é este por default, caso tenha utilizando outro metodo você tera que adicionar o cluster no argocd
+
+Agora teremos que acessar a interface grafica em "localhost:8080"
+
+Nesta parte segue a mesma ideia do login por cli, usuario "admin" e a senha é aquele token que o argocd gera
+
+
+## Sincronizando o Deployment
+
+Após logar na interface grafica, aparecera esta tela
+<img width="1586" height="708" alt="image" src="https://github.com/user-attachments/assets/a1eccd09-b875-4ad6-85d0-c20ff3a7ba55" />
+
+Clicaremos no seu app, no caso a "botique"
+
+Nesta tela, clicaremos em SYNC
+<br>
+<img width="1573" height="702" alt="image" src="https://github.com/user-attachments/assets/eedb6c1c-cca1-485c-bcf5-a5a0ffda71fc" />
+
+E em SYNCHRONIZE
+<br>
+<img width="600" height="715" alt="image" src="https://github.com/user-attachments/assets/fe13efaa-3afd-4690-8a71-c2eae9c30f42" />
+
+
+Agora vamos em details
+<br>
+<img width="1353" height="328" alt="image" src="https://github.com/user-attachments/assets/463f43c2-7cdf-4f8d-bf8a-ec8619f24faf" />
+
+Iremos em SYNC POLICY, ativar e habilitar esta opção
+<br>
+<img width="1258" height="558" alt="image" src="https://github.com/user-attachments/assets/2eddd6eb-e9e4-4378-83fe-d883591268b4" />
+
+Após isso habilite as 2 opções que apareceu dentro de SYNC POLICY
+
+E pronto, projeto deployado e finalizado com argoCD
+
