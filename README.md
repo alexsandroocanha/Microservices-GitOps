@@ -212,3 +212,18 @@ argocd-redis-74c8c9c8c6-mzdlv                       1/1     Running   0         
 argocd-repo-server-76f77874d7-8qscp                 1/1     Running   0          116s
 argocd-server-64d5654c48-tkv65                      1/1     Running   0          116s
 ```
+
+Agora vamos autenticar o argoCD
+
+Execute este comando em um terminal, NÃO FECHE ESTE TERMINAL, e abra outro
+```
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+```
+
+O argoCD gera sempre uma chave aleatoria a cada instalação, para obter estas chaves no windows você tera que executar estes 2 comandos
+```powershell
+$pw = kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}"
+```
+```powershell
+ [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($pw))
+```
