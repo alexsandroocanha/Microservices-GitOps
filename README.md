@@ -45,4 +45,6 @@ Para verificar se instalou execute este comando
 choco --version
 ```
 
-Caso tenha outra distribuição consulte o
+Caso tenha algum problema na instalação ou em alguma outra parte consulte o site oficial do Chocolatey Software
+
+[![Clique aqui](https://img.shields.io/badge/Clique%20aqui-1f6feb?style=for-the-badge)](https://chocolatey.org/install)
