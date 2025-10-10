@@ -34,7 +34,8 @@ Exercitar práticas cloud-native em um app realista de loja virtual.
 
 ## Instalação / Documentação de requisitos
 ### Chocolatey
-
+> Caso utilize Linux você pode ignorar este passo
+> 
 Em windows 11, você precisara abrir o terminal em Administrador e executar este comando 
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
@@ -48,3 +49,18 @@ choco --version
 Caso tenha algum problema na instalação ou em alguma outra parte consulte o site oficial do Chocolatey Software
 
 [![Clique aqui](https://img.shields.io/badge/Clique%20aqui-1f6feb?style=for-the-badge)](https://chocolatey.org/install)
+
+
+### Kubectl
+
+Em sistemas windows, uma das formas "mais faceis" de se obter o kubectl, é utilizando o chocolatey.
+
+> Para instalar o kubectl no windows, você precisa abrir um terminal em modo de Adminstrador e executar este comando
+
+```powershell
+choco install kubernetes-cli
+```
+
+Para outras formas de instalação, ou caso utilize ambiente baseado em Linux, consulte a documentação do kubernetes logo abaixo
+
+[![Clique aqui](https://img.shields.io/badge/Clique%20aqui-1f6feb?style=for-the-badge)](https://kubernetes.io/docs/tasks/tools/)
