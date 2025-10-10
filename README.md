@@ -252,6 +252,8 @@ Password:
 Context 'localhost:8080' updated
 ```
 
+## Criação do Token
+
 Agora se por acaso você quiser colocar um repositorio privado, você tera que ir no GitHub e criar um Fine-grained tokens
 
 Este é o passo a passo de como criar este token
@@ -297,3 +299,12 @@ Este é o passo a passo de como criar este token
 <br>
 <img width="931" height="216" alt="image" src="https://github.com/user-attachments/assets/866371ff-1d07-4ee7-b3b8-7bf97e9a2d35" />
 <br>
+
+## Configuração dos repositorios privados
+
+Agora, voltando para o terminal. Configuraremos o token dentro do ArgoCD
+
+```powershell
+argocd repo add https://github.com/alexsandroocanha/gitops-microservices.git --username SEU-USUARIO-DO-GITHUB --password SEU-TOKEN
+```
+
