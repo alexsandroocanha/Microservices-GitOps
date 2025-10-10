@@ -5,8 +5,8 @@
 
 **Propósito**
 
-Exercitar práticas cloud-native (deploy, escalabilidade, observabilidade, mesh, GitOps) num app realista de loja virtual (browse → carrinho → checkout). 
-GitHub
+Exercitar práticas cloud-native em um app realista de loja virtual. 
+
 
 **Arquitetura**
 
@@ -23,3 +23,13 @@ GitHub
 * Fluxo GitOps:
   * Commit/push de manifests no GitHub;
   * Argo CD detecta diffs → sync (auto-sync opcional com --auto-prune --self-heal);
+
+
+## Requisitos
+* Kubectl
+* Distribuições leves de Kubernetes (Rancher desktop, minikube, kind, etc...)
+* ArgoCD Cli
+> Neste repositorio eu utilizei o Rancher desktop, mas nada impede de utilizar outra mini distribuições de kubernetes
+
+## Instalação / Documentação de requisitos
+### 
