@@ -25,11 +25,24 @@ Exercitar práticas cloud-native em um app realista de loja virtual.
   * Argo CD detecta diffs → sync (auto-sync opcional com --auto-prune --self-heal);
 
 
-## Requisitos
+## Requisitos 
+* Chocolatey
 * Kubectl
 * Distribuições leves de Kubernetes (Rancher desktop, minikube, kind, etc...)
 * ArgoCD Cli
 > Neste repositorio eu utilizei o Rancher desktop, mas nada impede de utilizar outra mini distribuições de kubernetes
 
 ## Instalação / Documentação de requisitos
-### 
+### Chocolatey
+
+Em windows 11, você precisara abrir o terminal em Administrador e executar este comando 
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+```
+
+Para verificar se instalou execute este comando
+```powershell
+choco --version
+```
+
+Caso tenha outra distribuição consulte o
