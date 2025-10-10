@@ -97,4 +97,8 @@ Invoke-WebRequest -Uri "https://github.com/argoproj/argo-cd/releases/latest/down
 ```powershell
 Move-Item .\argocd.exe "C:\Windows\System32\argocd.exe"
 ```
+Caso queira instalar de outra maneira, fique avontade de consultar a documentação de instalação do ArgoCD
 
+[![Clique aqui](https://img.shields.io/badge/Clique%20aqui-1f6feb?style=for-the-badge)](https://argo-cd.readthedocs.io/en/stable/cli_installation/)
+
+## 
