@@ -252,7 +252,6 @@ Password:
 Context 'localhost:8080' updated
 ```
 
-Após isso teremos que saber qual é o contexto do cluster, se esta em um cluster minikube, rancher desktop, etc...
-```powershell
-kubectl config current-context
-```
+Agora se por acaso você quiser colocar um repositorio privado, você tera que ir no GitHub e criar um token
+
+
