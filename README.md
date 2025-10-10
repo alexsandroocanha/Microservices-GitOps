@@ -252,6 +252,58 @@ Password:
 Context 'localhost:8080' updated
 ```
 
-Agora se por acaso você quiser colocar um repositorio privado, você tera que ir no GitHub e criar um token
+Agora se por acaso você quiser colocar um repositorio privado, você tera que ir no GitHub e criar um Fine-grained tokens
 
+Este é o passo a passo de como criar este token
+<br>
+### Primeiro você clica na sua foto do github e vai em settings
+<br>
+<img width="287" height="615" alt="image" src="https://github.com/user-attachments/assets/2c4bdc73-7166-4975-a2f3-50bdd908b059" />
 
+<br>
+
+### Após isso escrola para baixo até achar esta opção "Developer settings"
+
+<br>
+
+<img width="400" height="259" alt="image" src="https://github.com/user-attachments/assets/aa903142-4926-47b7-adbf-5399e0e01a6e" />
+
+<br>
+
+### Após isso clique no botão "Personal acces tokens" e dentro dele, clique na opção "Fine-grained tokens"
+
+<br>
+
+<img width="395" height="219" alt="image" src="https://github.com/user-attachments/assets/d400e6e2-f882-42cf-868a-90fe9c3818d0" />
+
+<br>
+
+### Clique no botão ao lado "Generate new token"
+
+<br>
+
+<img width="906" height="112" alt="image" src="https://github.com/user-attachments/assets/0a35d1aa-d6ab-4432-a911-dcda97ebe4c2" />
+
+<br>
+
+### Agora é só colocar o nome, e logo abaixo selecionar esta opção e selecionar o repositorio privado que contem os manifestos
+
+<br>
+
+<img width="892" height="361" alt="image" src="https://github.com/user-attachments/assets/15fdfc0d-4e5e-44de-8a55-bec15c855a95" />
+
+<br>
+
+### Para finalizar, coloque estas configurações apenas para a leitura
+
+<br>
+
+<img width="1129" height="570" alt="image" src="https://github.com/user-attachments/assets/014dc8a1-0cb2-43f0-b142-3b7303b5ebf8" />
+
+<br>
+
+### Copie o token e anote em um bloco de notas
+
+<br>
+
+<img width="931" height="216" alt="image" src="https://github.com/user-attachments/assets/866371ff-1d07-4ee7-b3b8-7bf97e9a2d35" />
