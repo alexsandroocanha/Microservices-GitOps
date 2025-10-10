@@ -19,6 +19,7 @@ GitHub
 
 * Repositório: aponte o app do Argo CD para a pasta de manifests (ex.: k8s/ ou online-boutique/kubernetes-manifests).
 * Credenciais: repo privado = cadastrar PAT read-only ou SSH Deploy Key no argocd repo add (já fizemos).
+* Acesso: acesso web utilizando o Traefik (http://shop.localtest.me)
 * Fluxo GitOps:
   * Commit/push de manifests no GitHub;
   * Argo CD detecta diffs → sync (auto-sync opcional com --auto-prune --self-heal);
