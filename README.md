@@ -78,6 +78,8 @@ Para outras formas de instalação, ou caso utilize ambiente baseado em Linux, c
 
 É até que simples, só basta baixar e instalar a versão msi
 
+[![Clique aqui](https://img.shields.io/badge/Clique%20aqui-1f6feb?style=for-the-badge)](https://rancherdesktop.io/)
+
 Após executar o programa pela primeira vez, basta executar nesta configuração
 <img width="515" height="494" alt="image" src="https://github.com/user-attachments/assets/7beda2b2-77f8-44ec-96df-abd0579ca8a3" />
 
