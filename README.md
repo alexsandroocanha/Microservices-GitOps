@@ -59,13 +59,6 @@ Nos sistemas windows basta instalar o docker pelo proprio site da Docker logo ab
 [![Clique aqui](https://img.shields.io/badge/Clique%20aqui-1f6feb?style=for-the-badge)](https://www.docker.com/get-started/)
 
 
-Caso você tenha selecionado o outro modo de container, basta ir em Troobleshooting, e em Factory Reset
-
-
-<img width="1444" height="839" alt="image" src="https://github.com/user-attachments/assets/17dbdb6c-1c51-4dd1-a4e6-b15e3e3b11a5" />
-<img width="1186" height="360" alt="image" src="https://github.com/user-attachments/assets/6515b186-6759-4c3b-aeef-f30523f4bb39" />
-
-
 ### Kubectl
 
 Em sistemas windows, uma das formas "mais faceis" de se obter o kubectl, é utilizando o chocolatey.
@@ -87,6 +80,11 @@ Para outras formas de instalação, ou caso utilize ambiente baseado em Linux, c
 
 Após executar o programa pela primeira vez, basta executar nesta configuração
 <img width="515" height="494" alt="image" src="https://github.com/user-attachments/assets/7beda2b2-77f8-44ec-96df-abd0579ca8a3" />
+
+Caso você tenha selecionado o outro modo de container, basta ir em Troobleshooting, e em Factory Reset
+
+<img width="1444" height="839" alt="image" src="https://github.com/user-attachments/assets/17dbdb6c-1c51-4dd1-a4e6-b15e3e3b11a5" />
+<img width="1186" height="360" alt="image" src="https://github.com/user-attachments/assets/6515b186-6759-4c3b-aeef-f30523f4bb39" />
 
 ### ArgoCD Cli
 
