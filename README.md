@@ -1,47 +1,58 @@
-<h1 align="center">GitOps com Argo CD</h1>
-<p align="center"> <i>Configurando acesso a repositório privado e deploy contínuo com Argo CD</i></p>
+<h1 align="center">GitOps with Argo CD</h1>
+<p align="center"> <i>Configuring access to private repositories and continuous deployment with Argo CD</i></p>
+
+---
 
 ### Topics
-* [Required](#required)
-* [Instalação dos Requisitos](#first-step)
-* [Configuração do ArgoCD](#configuração-inicial-do-argocd)
-* [Autenticação do ArgoCD](#agora-vamos-autenticar-o-argocd)
-* [Criação do Token GitHub](#criação-do-token)
-* [Configuração dos Repositorios](#configuração-dos-repositorios-privados)
-* [Sincronizando o Deployment](#sincronizando-o-deployment)
+* [Requirements](#requirements)
+* [Initial Setup](#initial-setup)
+* [ArgoCD Configuration](#argocd-configuration)
+* [ArgoCD Authentication](#argocd-authentication)
+* [GitHub Token Creation](#token-creation)
+* [Private Repository Configuration](#private-repository-configuration)
+* [Deploy Synchronization](#deploy-synchronization)
 
-## Required 
-- [x] Docker
-- [x] Chocolatey
-- [x] Kubectl
-- [x] ArgoCD Cli
-- [x] Cluster K8S
+---
 
-## Configuração inicial do ArgoCD
+## Requirements
 
-Para verificar se o cluster esta online, abra o terminal e execute este comando
+- [x] Docker  
+- [x] Chocolatey  
+- [x] kubectl  
+- [x] ArgoCD CLI  
+- [x] Kubernetes Cluster  
+
+---
+
+## Initial Setup
+
+To verify if the cluster is online, open a terminal and run:
 
 ```powershell
 kubectl get all
-```
+````
 
-O proximo passo agora é criar um Namespace para o ArgoCD
+The next step is to create a namespace for ArgoCD:
+
 ```powershell
-kubectl create namespace argocd --save-config
+kubectl create namespace argocd
 ```
 
-Agora é aonde realmente baixamos e instalamos o ArgoCD
+Now we install ArgoCD:
+
 ```powershell
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 
-Agora vamos verificar se os pods foram criados corretamentes
+Verify if the pods were created correctly:
+
 ```powershell
 kubectl get pods -n argocd
 ```
 
-A saida deve ser algo parecido com isto
-```poweshell
+Expected output:
+
+```powershell
 NAME                                                READY   STATUS    RESTARTS   AGE
 argocd-application-controller-0                     1/1     Running   0          115s
 argocd-applicationset-controller-5f67f4c987-vdtpr   1/1     Running   0          117s
@@ -53,175 +64,228 @@ argocd-server-64d5654c48-tkv65                      1/1     Running   0         
 ```
 
 ---
-### Agora vamos autenticar o argoCD
 
-Execute este comando em um terminal, NÃO FECHE ESTE TERMINAL, e abra outro
-```
+## ArgoCD Authentication
+
+Run the following command in a terminal (**keep it open**) and open a second terminal:
+
+```powershell
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
-<br>
 
-O argoCD gera sempre uma chave aleatoria a cada instalação, para obter estas chaves no windows você tera que executar estes 2 comandos
+---
+
+ArgoCD generates a random initial password.
+To retrieve it on Windows, run:
+
 ```powershell
 $pw = kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}"
 ```
+
 ```powershell
- [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($pw))
+[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($pw))
 ```
 
+Save this password securely, as it will be used for login.
 
-Salve este codigo que apareceu especificamente para você em um bloco de notas, pois precisaremos para fazer o Login do ArgoCD.
+---
 
-Após isso execute o seguinte commando
+Now log in to ArgoCD:
+
 ```powershell
 argocd login localhost:8080
 ```
-Concorde com os termos, e em username digite admin e em password digite aquele codigo que apareceu para você
+
+Accept the prompts and use:
+
+* Username: `admin`
+* Password: the decoded value above
 
 ---
-## Criação do Token
 
-Agora se por acaso você quiser colocar um repositorio privado, você tera que ir no GitHub e criar um Fine-grained tokens
-<br>
+## Token Creation
 
-### Primeiro você clica na sua foto do github e vai em settings
-<img 
- height="300" 
- alt="image" 
- src="https://github.com/user-attachments/assets/2c4bdc73-7166-4975-a2f3-50bdd908b059" 
-/>
-<br>
-
-Após isso escrola para baixo até achar esta opção "Developer settings"
-<br>
-<img 
- width="200" 
- alt="image" 
- src="https://github.com/user-attachments/assets/aa903142-4926-47b7-adbf-5399e0e01a6e" 
-/>
-<br>
-
-Após isso clique no botão "Personal acces tokens" e dentro dele, clique na opção "Fine-grained tokens"
-<br>
-<img 
- width="250" 
- alt="image" 
- src="https://github.com/user-attachments/assets/d400e6e2-f882-42cf-868a-90fe9c3818d0" 
-/>
-<br>
-
-Clique no botão ao lado "Generate new token"
-<br>
-<img 
- width="500" 
- alt="image" 
- src="https://github.com/user-attachments/assets/0a35d1aa-d6ab-4432-a911-dcda97ebe4c2" 
-/>
-<br>
-
-Agora é só colocar o nome, e logo abaixo selecionar esta opção e selecionar o repositorio privado que contem os manifestos
-
-<br>
-<img 
- width="400" 
- alt="image" 
- src="https://github.com/user-attachments/assets/15fdfc0d-4e5e-44de-8a55-bec15c855a95" 
-/>
-<br>
-
-Para finalizar, coloque estas configurações apenas para a leitura
-
-<br>
-<img 
- width="500" 
- alt="image" 
- src="https://github.com/user-attachments/assets/014dc8a1-0cb2-43f0-b142-3b7303b5ebf8" 
-/>
-<br>
-
-Copie o token e anote em um bloco de notas
-
-<br>
-<img 
- width="500" 
- alt="image" 
- src="https://github.com/user-attachments/assets/866371ff-1d07-4ee7-b3b8-7bf97e9a2d35" 
-/>
-<br>
+If you want to use a private repository, you need to create a GitHub **Fine-grained Personal Access Token**.
 
 ---
-## Configuração dos repositorios privados
 
-Agora, voltando para o terminal. Configuraremos o token dentro do ArgoCD
+### Step 1: GitHub Settings
+
+Click your GitHub profile and go to **Settings**
+
+<img 
+height="300" 
+alt="image" 
+src="https://github.com/user-attachments/assets/2c4bdc73-7166-4975-a2f3-50bdd908b059" 
+/>
+
+---
+
+Scroll down and find **Developer settings**
+
+<img 
+width="200" 
+alt="image" 
+src="https://github.com/user-attachments/assets/aa903142-4926-47b7-adbf-5399e0e01a6e" 
+/>
+
+---
+
+Go to **Personal access tokens → Fine-grained tokens**
+
+<img 
+width="250" 
+alt="image" 
+src="https://github.com/user-attachments/assets/d400e6e2-f882-42cf-868a-90fe9c3818d0" 
+/>
+
+---
+
+Click **Generate new token**
+
+<img 
+width="500" 
+alt="image" 
+src="https://github.com/user-attachments/assets/0a35d1aa-d6ab-4432-a911-dcda97ebe4c2" 
+/>
+
+---
+
+Configure:
+
+* token name
+* select repository access (choose your manifest repository)
+
+<img 
+width="400" 
+alt="image" 
+src="https://github.com/user-attachments/assets/15fdfc0d-4e5e-44de-8a55-bec15c855a95" 
+/>
+
+---
+
+Set permissions to **read-only access**
+
+<img 
+width="500" 
+alt="image" 
+src="https://github.com/user-attachments/assets/014dc8a1-0cb2-43f0-b142-3b7303b5ebf8" 
+/>
+
+---
+
+Copy the generated token and store it securely.
+
+<img 
+width="500" 
+alt="image" 
+src="https://github.com/user-attachments/assets/866371ff-1d07-4ee7-b3b8-7bf97e9a2d35" 
+/>
+
+---
+
+## Private Repository Configuration
+
+Now configure the token inside ArgoCD:
 
 ```powershell
-argocd repo add LINK-DO-REPOSITORIO --username SEU-USUARIO-DO-GITHUB --password SEU-TOKEN
+argocd repo add <REPO_URL> --username <GITHUB_USERNAME> --password <GITHUB_TOKEN>
 ```
-
-Agora configuraremos o deploy do manifesto
-```powershell
-argocd app create botique --repo LINK-DO-REPOSITORIO --path . --dest-server https://kubernetes.default.svc --dest-namespace default
-```
-Algumas observações
-> --path - É aonde se localiza o manifesto, pense que ele é uma pessoa e ira fazer o deploy. Você precisa se direcionar para o manifesto colocando o caminho da pasta (Exemplo: /repositorio-legal/manifestos/)
-
-> --dest-server - É o cluster kubernetes que você vai fazer o deploy. Caso esteja utilizando o Rancher Desktop o cluster dele é este por default, caso tenha utilizando outro metodo você tera que adicionar o cluster no argocd
-
-Agora teremos que acessar a interface grafica em "localhost:8080"
-
-Nesta parte segue a mesma ideia do login por cli, usuario "admin" e a senha é aquele token que o argocd gera
 
 ---
-## Sincronizando o Deployment
 
-### Após logar na interface grafica, aparecera esta tela, clicaremos no seu app, no caso a "botique"
-<br>
+Create the ArgoCD application:
+
+```powershell
+argocd app create boutique --repo <REPO_URL> --path . --dest-server https://kubernetes.default.svc --dest-namespace default
+```
+
+---
+
+### Notes
+
+* `--path` → folder where manifests are located
+* `--dest-server` → Kubernetes cluster endpoint (default for local clusters like Rancher Desktop)
+
+---
+
+Access ArgoCD UI:
+
+```
+http://localhost:8080
+```
+
+Login:
+
+* username: `admin`
+* password: ArgoCD initial password
+
+---
+
+## Deploy Synchronization
+
+After logging into the UI, select your application (e.g. `boutique`).
+
 <img 
- width="500" 
- alt="image" 
- src="https://github.com/user-attachments/assets/a1eccd09-b875-4ad6-85d0-c20ff3a7ba55"
+width="500" 
+alt="image" 
+src="https://github.com/user-attachments/assets/a1eccd09-b875-4ad6-85d0-c20ff3a7ba55"
 />
 
+---
 
+Click **SYNC**
 
-### Nesta tela, clicaremos em SYNC
-<br>
 <img 
- width="500"
- alt="image" 
- src="https://github.com/user-attachments/assets/eedb6c1c-cca1-485c-bcf5-a5a0ffda71fc" 
+width="500"
+alt="image" 
+src="https://github.com/user-attachments/assets/eedb6c1c-cca1-485c-bcf5-a5a0ffda71fc" 
 />
 
-### E em SYNCHRONIZE
-<br>
+---
+
+Then click **SYNCHRONIZE**
+
 <img 
- width="500" 
- alt="image" 
- src="https://github.com/user-attachments/assets/fe13efaa-3afd-4690-8a71-c2eae9c30f42" 
+width="500" 
+alt="image" 
+src="https://github.com/user-attachments/assets/fe13efaa-3afd-4690-8a71-c2eae9c30f42" 
 />
 
+---
 
-### Agora vamos em details
-<br>
+Go to **Details**
+
 <img 
- width="500" 
- alt="image" 
- src="https://github.com/user-attachments/assets/463f43c2-7cdf-4f8d-bf8a-ec8619f24faf" 
+width="500" 
+alt="image" 
+src="https://github.com/user-attachments/assets/463f43c2-7cdf-4f8d-bf8a-ec8619f24faf" 
 />
 
-### Iremos em SYNC POLICY, ativar e habilitar esta opção
-<br>
+---
+
+Enable **Sync Policy**
+
 <img 
- width="500" 
- alt="image" 
- src="https://github.com/user-attachments/assets/2eddd6eb-e9e4-4378-83fe-d883591268b4" 
+width="500" 
+alt="image" 
+src="https://github.com/user-attachments/assets/2eddd6eb-e9e4-4378-83fe-d883591268b4" 
 />
 
-Após isso habilite as 2 opções que apareceu dentro de SYNC POLICY
-E pronto, projeto deployado e finalizado com argoCD
+---
 
-### Informações para Contato
+Enable both automatic sync options.
 
-[![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/alexsandro-ocanha-rodrigues-77149a35b/)
-[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/alexsandro.pcap/)
-[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:alexsandroocanha@gmail.com)
+---
+
+## Final Result
+
+Your application is now deployed and managed by ArgoCD.
+
+---
+
+## Contact Information
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge\&logo=linkedin\&logoColor=white)](https://www.linkedin.com/in/alexsandro-ocanha-rodrigues-77149a35b/)
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge\&logo=instagram\&logoColor=white)](https://www.instagram.com/alexsandro.pcap/)
+[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge\&logo=gmail\&logoColor=white)](mailto:alexsandroocanha@gmail.com)
